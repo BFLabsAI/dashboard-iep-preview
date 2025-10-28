@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Completo - Análise de Pacientes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .content-section {
+            scroll-margin-top: 100px;
+        }
+        .patient-card {
+            transition: all 0.3s ease;
+        }
+        .patient-card:hover {
+            transform: translateY(-2px);
+        }
+        .traffic-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .sticky-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation Header -->
+    <header class="sticky-nav fixed top-0 left-0 right-0 z-50 border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="font-bold text-xl">Dashboard IEP</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="INDEX.HTML" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                        Dashboard
+                    </a>
+                    <a href="relatorio-completo.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600 pb-1">
+                        Relatório Completo
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Análise Completa de Pacientes
+                </h1>
+                <p class="text-xl text-indigo-100 mb-8">
+                    Análise detalhada por origem de tráfego com insights e oportunidades de ação
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <span class="text-3xl font-bold">19</span>
+                        <p class="text-sm text-indigo-100">Pacientes Analisados</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <span class="text-3xl font-bold">3</span>
+                        <p class="text-sm text-indigo-100">Fontes de Tráfego</p>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                        <span class="text-3xl font-bold">7</span>
+                        <p class="text-sm text-indigo-100">Procedimentos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Navigation -->
+    <section class="bg-white border-b sticky top-16 z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-gray-700">Navegação Rápida:</h3>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#meta-ads" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors">
+                        Meta Ads (12)
+                    </a>
+                    <a href="#google-ads" class="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium hover:bg-green-200 transition-colors">
+                        Google Ads (1)
+                    </a>
+                    <a href="#organico" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium hover:bg-purple-200 transition-colors">
+                        Tráfego Orgânico (6)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- META ADS SECTION -->
+        <section id="meta-ads" class="content-section mb-12">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center">
+                                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9.042 19.002h3.918c.552 0 1-.448 1-1s-.448-1-1-1H9.042c-.552 0-1 .448-1 1s.448 1 1 1z"/>
+                                    <path d="M15.96 13.002h1.04c.552 0 1-.448 1-1s-.448-1-1-1h-1.04c-.552 0-1 .448-1 1s.448 1 1 1z"/>
+                                    <path d="M7.04 13.002h5.918c.552 0 1-.448 1-1s-.448-1-1-1H7.04c-.552 0-1 .448-1 1s.448 1 1 1z"/>
+                                    <path d="M15.042 7.002h1.958c.552 0 1-.448 1-1s-.448-1-1-1h-1.958c-.552 0-1 .448-1 1s.448 1 1 1z"/>
+                                    <path d="M7.042 7.002h5.918c.552 0 1-.448 1-1s-.448-1-1-1H7.042c-.552 0-1 .448-1 1s.448 1 1 1z"/>
+                                    <path d="M21 6.002v11c0 2.206-1.794 4-4 4H7c-2.206 0-4-1.794-4-4v-11c0-2.206 1.794-4 4-4h10c2.206 0 4 1.794 4 4zM3 6.002v11c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-11c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2z"/>
+                                </svg>
+                                Tráfego Pago - Meta Ads (Facebook/Instagram)
+                            </h2>
+                            <p class="text-blue-100 mt-2">Pacientes originados de Meta Ads</p>
+                        </div>
+                        <span class="traffic-badge bg-white/20 px-4 py-2 rounded-full font-bold text-xl">12 Pacientes</span>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-8">
+                    <!-- Grupo 1: Agendamento Finalizado -->
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-lg font-semibold text-green-700 mb-4">🎯 Grupo 1: Agendamento Finalizado</h3>
+
+                        <div class="patient-card bg-green-50 rounded-lg p-6 border border-green-200 mb-4">
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="font-bold text-lg text-blue-600">PACIENTE #14: CLÓDOALDO (558596236335)</h4>
+                                    <div class="flex items-center gap-3 mt-1">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Nutrologia</span>
+                                        <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-green-500 text-white rounded-full text-sm font-bold">CONFIRMADO</span>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-4 mb-4">
+                                <h5 class="font-semibold text-gray-700 mb-2">📋 CONTEXTO COMPLETO:</h5>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Clódoaldo demonstrou interesse, confirmou a preferência de data e teve seu agendamento confirmado para o dia 07/11.
+                                    O processo está quase finalizado, faltando apenas a etapa do pagamento da taxa, sobre a qual a equipe já o questionou.
+                                </p>
+                            </div>
+
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                <p class="text-sm">
+                                    <strong class="text-yellow-700">ÚLTIMA INTERAÇÃO:</strong>
+                                    <span class="text-gray-600"> A equipe perguntou: "Para sua taxa de agendamento, envio pix ou link do crédito?".</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 2: Ficaram de Agendar no Futuro -->
+                    <div class="border-l-4 border-indigo-500 pl-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4">📅 Grupo 2: Ficaram de Agendar no Futuro (Compromisso com Data)</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente ALEX -->
+                            <div class="patient-card bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #1: ALEX (558587121167)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Alex demonstrou grande interesse, elogiou o atendimento ("são bem atenciosos"), mas explicou que sua agenda era o impeditivo no momento.
+                                        Ele se comprometeu a retomar o contato em um período específico, mostrando que a intenção de compra é real, apenas adiada.
+                                    </p>
+                                </div>
+
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-blue-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente diz "Tá ótimo" ao ser informado que será contatado sobre promoções, após se comprometer a agendar no "começo do mês".</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente JOÃO PAULO -->
+                            <div class="patient-card bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #29: JOÃO PAULO (558585351646)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Nutrologia + Reposição Hormonal</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        João Paulo (45 anos) está interessado em dois serviços e explicou que precisa esperar sua escala de trabalho para agendar.
+                                        Ele foi muito específico e proativo, estabelecendo um compromisso claro de pagamento e agendamento para o início de novembro.
+                                    </p>
+                                </div>
+
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-green-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente prometeu: "No começo do mês eu já faço pagamento dos 50% e já passo a data que dará certo a consulta".</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente DEUSIMAR -->
+                            <div class="patient-card bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #16: DEUSIMAR (558591325784)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Deusimar demonstrou interesse claro, mas com um planejamento de longo prazo.
+                                        Ele especificou que suas férias, em Janeiro, seriam o momento ideal para o tratamento.
+                                        O interesse é qualificado, pois mesmo planejando para longe, ele continuou a conversa para tirar dúvidas sobre exames.
+                                    </p>
+                                </div>
+
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-orange-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> A equipe explicou sobre os exames hormonais.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente NADSON -->
+                            <div class="patient-card bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #8: NADSON (5585996913746) - CORRIGIDO</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Infertilidade + Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Nadson, de Aracati, mostrou interesse em dois procedimentos de alto valor e concordou com a data e horário oferecidos (07/11 às 16h).
+                                        Embora não tenha respondido à pergunta final sobre o pagamento, o fato de ter uma data e hora definidas o qualifica como um agendamento futuro pendente de confirmação final.
+                                    </p>
+                                </div>
+
+                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-yellow-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> A equipe perguntou "Podemos prosseguir Nadson?".</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente IVO -->
+                            <div class="patient-card bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #9: IVO (558596189079) - CORRIGIDO</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Ivo foi direto e organizado em seu interesse. Ele não apenas disse que iria marcar, mas especificou o período ("semana que vem")
+                                        e indicou que colocaria um lembrete em sua própria agenda para fazer o contato.
+                                    </p>
+                                </div>
+
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-blue-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente comprometeu-se: "Procuro vc semana q vem pra gente marcar".</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 3: Nos Devem um Feedback -->
+                    <div class="border-l-4 border-yellow-500 pl-6">
+                        <h3 class="text-lg font-semibold text-yellow-700 mb-4">⏳ Grupo 3: Nos Devem um Feedback (A Bola está com Eles)</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente MARCELO -->
+                            <div class="patient-card bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #27: MARCELO (558592789372)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Marcelo (47 anos) estava pronto para agendar. Ele já sabia os valores do procedimento e da consulta e perguntou ativamente como marcar.
+                                        A conversa esfriou quando a equipe, em vez de oferecer horários concretos, apenas perguntou sua preferência, deixando a bola com ele.
+                                    </p>
+                                </div>
+
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-orange-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> A equipe perguntou: "Para sua avaliação, prefere pela manhã, tarde ou noite Marcelo?".</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente GERMANO -->
+                            <div class="patient-card bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #6: GERMANO (558586077383)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Após receber uma oferta de agendamento, Germano perguntou a localização.
+                                        Ao receber o endereço, ele apenas disse "Certo" e não confirmou o horário, deixando a conversa em aberto.
+                                        A falta de confirmação indica que ele precisa de um follow-up.
+                                    </p>
+                                </div>
+
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-gray-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente disse "Certo" após receber a localização.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 4: Objeção Financeira -->
+                    <div class="border-l-4 border-red-500 pl-6">
+                        <h3 class="text-lg font-semibold text-red-700 mb-4">💰 Grupo 4: Pararam por Objeção Financeira</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente LEONARDO -->
+                            <div class="patient-card bg-red-50 rounded-lg p-6 border border-red-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #3: LEONARDO (558596803980)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Leonardo (41 anos) demonstrou o clássico "choque de preço".
+                                        Sua reação ao saber que o procedimento custaria mais de R$8.000 foi explícita e com humor ("Misericórdia kkk").
+                                        Embora ele tenha continuado a conversa por curiosidade, a barreira do valor foi claramente estabelecida desde o início.
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-100 border border-red-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-red-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Leonardo diz "Ok" após a explicação sobre as imagens.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente ANDRÉ -->
+                            <div class="patient-card bg-red-50 rounded-lg p-6 border border-red-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #23: ANDRÉ (558599895570)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Nutrologia</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        André apresentou uma necessidade médica real, detalhando seus sintomas por áudio.
+                                        No entanto, ao ser informado sobre o investimento, ele foi extremamente sincero e educado
+                                        ao afirmar que o valor estava além de suas possibilidades no momento: "Confesso que está fora do meu orçamento. Prefiro ser sincero".
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-100 border border-red-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-red-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente sendo honesto sobre sua limitação orçamentária.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente VINICIUS -->
+                            <div class="patient-card bg-red-50 rounded-lg p-6 border border-red-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #22: VINICIUS (558591360230)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Preenchimento Peniano</span>
+                                    <span class="text-gray-500 text-sm">Origem: Meta Ads (FB_Ads)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        A conversa com Vinicius (49 anos) parou imediatamente após ele perguntar o "Valor da consulta?"
+                                        e receber a resposta (R$450). A interrupção súbita nesse ponto é um forte indicativo de objeção ao custo inicial da avaliação.
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-100 border border-red-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-red-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> A equipe explicou o valor da consulta de avaliação.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GOOGLE ADS SECTION -->
+        <section id="google-ads" class="content-section mb-12">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center">
+                                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                                Google Ads
+                            </h2>
+                            <p class="text-green-100 mt-2">Pacientes originados de busca paga no Google</p>
+                        </div>
+                        <span class="traffic-badge bg-white/20 px-4 py-2 rounded-full font-bold text-xl">1 Paciente</span>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="border-l-4 border-yellow-500 pl-6">
+                        <h3 class="text-lg font-semibold text-yellow-700 mb-4">⏳ Grupo: Nos Devem um Feedback (A Bola está com Eles)</h3>
+
+                        <div class="patient-card bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                            <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #18: DANILO (558592965150)</h4>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">Reposição Hormonal</span>
+                                <span class="text-gray-500 text-sm">Origem: Google Ads (menção "Google" na mensagem)</span>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-4 mb-3">
+                                <p class="text-gray-600 leading-relaxed">
+                                    Danilo (39 anos) chegou com uma busca ativa e sintomas claros (ganho de gordura, falta de disposição).
+                                    Ele recebeu todas as informações, definiu sua preferência de horário ("Final da tarde. Exemplo: 16 horas"),
+                                    e a conversa parou quando a equipe perguntou sua preferência para o pagamento da taxa.
+                                    Ele está pronto para agendar, aguardando o próximo passo da equipe.
+                                </p>
+                            </div>
+
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                <p class="text-sm">
+                                    <strong class="text-green-700">ÚLTIMA INTERAÇÃO:</strong>
+                                    <span class="text-gray-600"> A equipe perguntou: "Para tua taxa de agendamento Danilo, prefere que te envie chave pix ou link de cartão de crédito?".</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRÁFEGO ORGÂNICO SECTION -->
+        <section id="organico" class="content-section mb-12">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold flex items-center">
+                                <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Tráfego Orgânico
+                            </h2>
+                            <p class="text-purple-100 mt-2">Pacientes que chegaram espontaneamente</p>
+                        </div>
+                        <span class="traffic-badge bg-white/20 px-4 py-2 rounded-full font-bold text-xl">6 Pacientes</span>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-8">
+                    <!-- Grupo 1: Pronto para Procedimento -->
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-lg font-semibold text-green-700 mb-4">🎯 Grupo 1: Pronto para o Procedimento (Pós-Consulta)</h3>
+
+                        <div class="patient-card bg-green-50 rounded-lg p-6 border border-green-200">
+                            <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #5: MARCO (558599822221)</h4>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">Reposição Hormonal com Implantes</span>
+                                <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-4 mb-3">
+                                <p class="text-gray-600 leading-relaxed">
+                                    Marco (40 anos) foi um paciente exemplar. Ele entrou em contato já interessado em implantes, forneceu exames,
+                                    negociou o agendamento, realizou o pagamento da taxa e compareceu à consulta no dia seguinte.
+                                    O ponto mais importante é que, após a consulta, ele tomou a iniciativa de contatar a clínica novamente,
+                                    demonstrando urgência e total interesse em realizar o procedimento principal no mesmo dia.
+                                </p>
+                            </div>
+
+                            <div class="bg-green-100 border border-green-200 rounded-lg p-3">
+                                <p class="text-sm">
+                                    <strong class="text-green-700">ÚLTIMA INTERAÇÃO:</strong>
+                                    <span class="text-gray-600"> Paciente perguntou: "Posso voltar agora p colocar o implante c dr eudes?".</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 2: Agendamento Finalizado -->
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-lg font-semibold text-blue-700 mb-4">📅 Grupo 2: Agendamento Finalizado</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente RONALDO -->
+                            <div class="patient-card bg-blue-50 rounded-lg p-6 border border-blue-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #7: RONALDO (558597568525)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Nutrologia (Emagrecimento)</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Ronaldo, morador de Russas, demonstrou alto comprometimento ao buscar ativamente uma data em novembro e se dispor a viajar.
+                                        Ele negociou o dia e horário, confirmando para 14/11 às 14:30. Ele solicitou o link de pagamento e confirmou o recebimento,
+                                        faltando apenas a confirmação de que o pagamento da taxa foi efetivado.
+                                    </p>
+                                </div>
+
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-green-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente disse "Grato 👍" após a equipe confirmar o agendamento.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente MIQUEIAS -->
+                            <div class="patient-card bg-blue-50 rounded-lg p-6 border border-blue-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #15: MIQUEIAS (558599228167)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">Andrologia</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Miqueias agendou sua consulta para o dia 10/11 e fez um compromisso de pagamento firme e com prazo,
+                                        indicando alta intenção. O prazo que ele mesmo estipulou ("amanhã") já venceu,
+                                        o que torna o contato para verificação do pagamento urgente.
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-red-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente prometendo realizar o pagamento no dia seguinte: "Manda o Pix amanhã faco".</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 3: Nos Devem um Feedback -->
+                    <div class="border-l-4 border-yellow-500 pl-6">
+                        <h3 class="text-lg font-semibold text-yellow-700 mb-4">⏳ Grupo 3: Nos Devem um Feedback (A Bola está com Eles)</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente AURICELIA -->
+                            <div class="patient-card bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #2: AURICELIA (558585686228)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">Cirurgia de Cálculo Renal (para o padrasto)</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Auricelia apresentou um caso cirúrgico urgente para seu padrasto de outra cidade.
+                                        Ela se mostrou inclinada a agendar a teleconsulta, mas precisava da aprovação final dele.
+                                        Ela se comprometeu a dar um retorno no mesmo dia, o que não aconteceu.
+                                    </p>
+                                </div>
+
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-orange-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente prometeu: "vou conversar com ele a noite e lhe passo se vamos fazer o agendamento.".</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente TYAGO NUNES -->
+                            <div class="patient-card bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #26: TYAGO NUNES (558588569476)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Nutrologia (Obesidade)</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Tyago (39 anos) é um paciente de altíssimo potencial, com comorbidades e interesse em acompanhamento de longo prazo.
+                                        Após receber todas as informações, ele encerrou a conversa de forma positiva,
+                                        jogando a responsabilidade do próximo contato para si mesmo.
+                                    </p>
+                                </div>
+
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-green-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente prometeu: "Eu retorno o contato em breve. Obrigado".</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo 4: Objeção Financeira -->
+                    <div class="border-l-4 border-red-500 pl-6">
+                        <h3 class="text-lg font-semibold text-red-700 mb-4">💰 Grupo 4: Pararam por Objeção Financeira</h3>
+
+                        <div class="grid gap-4">
+                            <!-- Paciente JOHNATHAN -->
+                            <div class="patient-card bg-red-50 rounded-lg p-6 border border-red-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #4: JOHNATHAN (558585261177)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Ejaculação Precoce + Reposição Hormonal</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: android)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Johnathan (30 anos) tinha uma necessidade urgente (incômodo nota 10/10), mas foi completamente bloqueado pelo valor da consulta.
+                                        Ele foi muito transparente sobre sua situação financeira, mas demonstrou interesse em um contato futuro.
+                                    </p>
+                                </div>
+
+                                <div class="bg-red-100 border border-red-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-red-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente afirmou: "Não vou conseguir esse dinheiro agora", mas abriu portas para o futuro.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Paciente YANNA -->
+                            <div class="patient-card bg-red-50 rounded-lg p-6 border border-red-200">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">PACIENTE #28: YANNA (558599995417)</h4>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Nutrologia (para o esposo)</span>
+                                    <span class="text-gray-500 text-sm">Origem: Orgânico (source: null)</span>
+                                </div>
+
+                                <div class="bg-white rounded-lg p-4 mb-3">
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Yanna representa uma oportunidade qualificada por indicação ("O meu tio já é cliente e indicou").
+                                        Contudo, o valor da consulta foi um impeditivo.
+                                        A conexão familiar e a sua resposta "Mas vou ve direitinho" indicam que a porta não está totalmente fechada.
+                                    </p>
+                                </div>
+
+                                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                                    <p class="text-sm">
+                                        <strong class="text-orange-700">ÚLTIMA INTERAÇÃO:</strong>
+                                        <span class="text-gray-600"> Paciente afirmou: "achamos o valor alto nesse momento para nós".</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-xl p-8 mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-center">Resumo Executivo</h2>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold mb-2">12</div>
+                    <div class="text-gray-300">Pacientes Meta Ads</div>
+                    <div class="text-sm text-gray-400 mt-2">63% do total</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold mb-2">6</div>
+                    <div class="text-gray-300">Pacientes Orgânicos</div>
+                    <div class="text-sm text-gray-400 mt-2">32% do total</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold mb-2">1</div>
+                    <div class="text-gray-300">Paciente Google Ads</div>
+                    <div class="text-sm text-gray-400 mt-2">5% do total</div>
+                </div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4">Principais Insights:</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Meta Ads é a principal fonte de tráfego (63%), demonstrando eficácia das campanhas</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-yellow-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>5 pacientes com agendamento futuro próximo requerem follow-up imediato</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>6 pacientes pararam por objeção financeira - oportunidade para criar planos de pagamento</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Tráfego orgânico tem alta qualificação (50% de conversão em agendamentos)</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">Dashboard IEP</h3>
+                    <p class="text-gray-400">Análise inteligente de pacientes e oportunidades</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="INDEX.HTML" class="text-gray-400 hover:text-white transition-colors">
+                        Dashboard
+                    </a>
+                    <a href="relatorio-completo.html" class="text-white font-medium">
+                        Relatório Completo
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2024 BF Labs AI. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add scroll effect to navigation
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('.sticky-nav');
+                if (window.scrollY > 100) {
+                    nav.classList.add('shadow-md');
+                } else {
+                    nav.classList.remove('shadow-md');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
