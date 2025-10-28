@@ -1,0 +1,17 @@
+{
+  "name": "dashboard-iep-preview",
+  "version": "1.0.0",
+  "description": "Patient Analysis Dashboard - Interactive visual dashboard with KPIs and charts",
+  "main": "INDEX.HTML",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": ["dashboard", "analytics", "healthcare", "charts", "patients"],
+  "author": "BF Labs AI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BFLabsAI/dashboard-iep-preview.git"
+  }
+}
