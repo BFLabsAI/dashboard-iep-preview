@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Visual de Pacientes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo customizado para o accordion */
+        .accordion-content {
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <main class="container mx-auto p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Relatório Visual de Análise de Pacientes</h1>
+
+        <!-- KPIs (Indicadores-Chave) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Total de Pacientes</h3>
+                <p class="text-4xl font-bold text-blue-600 mt-2">19</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Agendamentos Finalizados</h3>
+                <p class="text-4xl font-bold text-green-600 mt-2">3</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Oportunidades Futuras</h3>
+                <p class="text-4xl font-bold text-indigo-600 mt-2">5</p>
+                <p class="text-xs text-gray-500 mt-1">(Compromisso com data)</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wide">Objeções Financeiras</h3>
+                <p class="text-4xl font-bold text-red-600 mt-2">5</p>
+                <p class="text-xs text-gray-500 mt-1">(Principal ponto de atrito)</p>
+            </div>
+        </section>
+
+        <!-- Gráficos Principais -->
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+            <!-- Gráfico de Origem (Donut) -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Origem de Tráfego</h2>
+                <div class="h-64 md:h-80 flex items-center justify-center">
+                    <canvas id="origemChart"></canvas>
+                </div>
+            </div>
+            <!-- Gráfico de Status do Funil (Bar) -->
+            <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Status no Funil de Vendas</h2>
+                <div class="h-64 md:h-80">
+                    <canvas id="funilChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráfico Secundário (Interesse por Procedimento) -->
+        <section class="bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-8">
+             <h2 class="text-lg font-semibold text-gray-700 mb-4">Interesse por Procedimento</h2>
+             <div class="h-80">
+                <canvas id="procedimentoChart"></canvas>
+             </div>
+        </section>
+
+        <!-- Análise Detalhada por Status (Accordion) -->
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Análise Detalhada e Plano de Ação</h2>
+            <p class="text-gray-600 mb-6">Pacientes agrupados por status para follow-up imediato.</p>
+
+            <div class="space-y-4">
+
+                <!-- Grupo 1: Agendados e Prontos (Alta Prioridade) -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 font-semibold text-left" data-target="content-1">
+                        <span class="text-lg text-green-700">Agendados & Prontos para Proceder (4 Pacientes)</span>
+                        <svg class="accordion-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-1" class="accordion-content max-h-0 overflow-hidden bg-gray-50">
+                        <div class="p-5 space-y-4">
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">MARCO (558599822221) - Pós-Consulta</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Reposição Hormonal com Implantes
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Já consultou. Tomou a iniciativa de contatar a clínica novamente, demonstrando urgência e total interesse em realizar o procedimento principal no mesmo dia.</p>
+                                <p class="text-xs mt-1 font-semibold text-green-700"><strong>Ação:</strong> Contato imediato para agendar o procedimento.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">CLÓDOALDO (558596236335) - Agend. Finalizado</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Nutrologia
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Agendado para 07/11. Processo quase finalizado, faltando apenas a etapa do pagamento da taxa.</p>
+                                <p class="text-xs mt-1 font-semibold text-green-700"><strong>Ação:</strong> Follow-up para confirmar pagamento da taxa.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">RONALDO (558597568525) - Agend. Finalizado</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Nutrologia (Emagrecimento)
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Confirmado para 14/11. Solicitou link e confirmou recebimento. Falta confirmar se o pagamento foi efetivado.</p>
+                                <p class="text-xs mt-1 font-semibold text-green-700"><strong>Ação:</strong> Verificar se a taxa foi paga e confirmar agendamento.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">MIQUEIAS (558599228167) - Agend. Finalizado</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Andrologia
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Agendado para 10/11. Fez compromisso de pagamento firme ("amanhã"), mas o prazo já venceu.</p>
+                                <p class="text-xs mt-1 font-semibold text-red-600"><strong>Ação:</strong> Contato URGENTE para verificar pagamento da taxa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 2: Agendar no Futuro (Alto Potencial) -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 font-semibold text-left" data-target="content-2">
+                        <span class="text-lg text-indigo-700">Agendar no Futuro (5 Pacientes)</span>
+                        <svg class="accordion-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-2" class="accordion-content max-h-0 overflow-hidden bg-gray-50">
+                        <div class="p-5 space-y-4">
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">ALEX (558587121167)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Elogiou atendimento, mas agenda era impeditivo. Comprometeu-se a agendar no "começo do mês".</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">JOÃO PAULO (558585351646)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Nutrologia + Reposição Hormonal
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Precisa esperar escala de trabalho. Prometeu: "No começo do mês eu já faço pagamento... e já passo a data".</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">DEUSIMAR (558591325784)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Planejamento de longo prazo. Especificou férias em Janeiro como momento ideal.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">NADSON (5585996913746)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Infertilidade + Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Concordou com data e horário (07/11 às 16h). Pendente de confirmação final de pagamento.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">IVO (558596189079)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Especificou período ("semana que vem") e disse que colocaria lembrete na agenda.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 3: Nos Devem um Feedback (Follow-up) -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 font-semibold text-left" data-target="content-3">
+                        <span class="text-lg text-yellow-700">Follow-up Pendente (5 Pacientes)</span>
+                        <svg class="accordion-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-3" class="accordion-content max-h-0 overflow-hidden bg-gray-50">
+                        <div class="p-5 space-y-4">
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">MARCELO (558592789372)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Estava pronto para agendar. Conversa esfriou quando a equipe apenas perguntou preferência, sem oferecer horários concretos.</p>
+                                <p class="text-xs mt-1 font-semibold text-yellow-700"><strong>Ação:</strong> Retomar contato oferecendo datas e horários específicos.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">GERMANO (558586077383)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Após receber localização, disse "Certo" e não confirmou o horário.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">DANILO (558592965150)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Google Ads | <span class="font-medium">Procedimento:</span> Reposição Hormonal
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Busca ativa, sintomas claros. Definiu preferência ("Final da tarde"). Conversa parou na pergunta sobre pagamento da taxa.</p>
+                                <p class="text-xs mt-1 font-semibold text-yellow-700"><strong>Ação:</strong> Enviar diretamente o link/pix para pagamento da taxa e sugerir horário.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">AURICELIA (558585686228)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Cirurgia de Cálculo Renal (padrasto)
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Caso cirúrgico urgente. Precisava da aprovação final do padrasto. Prometeu retorno no mesmo dia, o que não aconteceu.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">TYAGO NUNES (558588569476)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Nutrologia (Obesidade)
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Alto potencial, comorbidades. Encerrou positivamente: "Eu retorno o contato em breve."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 4: Objeção Financeira (Re-nutrir) -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-5 font-semibold text-left" data-target="content-4">
+                        <span class="text-lg text-red-700">Pararam por Objeção Financeira (5 Pacientes)</span>
+                        <svg class="accordion-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="content-4" class="accordion-content max-h-0 overflow-hidden bg-gray-50">
+                        <div class="p-5 space-y-4">
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">LEONARDO (558596803980)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> "Choque de preço" explícito ("Misericórdia kkk") ao saber o valor do procedimento (>R$8.000).</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">ANDRÉ (558599895570)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Nutrologia
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Sincero e educado: "Confesso que está fora do meu orçamento."</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">VINICIUS (558591360230)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Meta Ads | <span class="font-medium">Procedimento:</span> Preenchimento Peniano
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Conversa parou imediatamente após saber o valor da consulta (R$450).</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">JOHNATHAN (558585261177)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Ejaculação Precoce + Reposição Hormonal
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Necessidade urgente, mas bloqueado pelo valor da consulta. "Não vou conseguir esse dinheiro agora". Abriu portas para o futuro.</p>
+                            </div>
+                            <!-- Paciente -->
+                            <div class="border rounded-lg p-4 bg-white shadow-sm">
+                                <strong class="text-blue-600">YANNA (558599995417)</strong>
+                                <div class="text-sm text-gray-600 mt-1">
+                                    <span class="font-medium">Origem:</span> Orgânico | <span class="font-medium">Procedimento:</span> Nutrologia (para o esposo)
+                                </div>
+                                <p class="text-xs mt-2 text-gray-700"><strong>Contexto:</strong> Veio por indicação, mas "achamos o valor alto nesse momento". Porta não totalmente fechada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- DADOS DOS GRÁFICOS ---
+
+            // Dados de Origem
+            const dataOrigem = {
+                labels: ['Meta Ads', 'Orgânico', 'Google Ads'],
+                datasets: [{
+                    label: 'Origem de Pacientes',
+                    data: [11, 7, 1], // 11 Meta, 7 Orgânico, 1 Google
+                    backgroundColor: [
+                        '#3b82f6', // blue-500
+                        '#10b981', // emerald-500
+                        '#f59e0b'  // amber-500
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    hoverOffset: 4
+                }]
+            };
+
+            // Dados do Funil
+            const dataFunil = {
+                labels: [
+                    'Agendar no Futuro', 
+                    'Nos Devem Feedback', 
+                    'Objeção Financeira', 
+                    'Agendamento Finalizado', 
+                    'Pronto p/ Proceder'
+                ],
+                datasets: [{
+                    label: 'Nº de Pacientes',
+                    data: [5, 5, 5, 3, 1],
+                    backgroundColor: [
+                        '#6366f1', // indigo-500 (Futuro)
+                        '#f59e0b', // amber-500 (Feedback)
+                        '#ef4444', // red-500 (Objeção)
+                        '#10b981', // emerald-500 (Finalizado)
+                        '#06b6d4'  // cyan-500 (Pronto)
+                    ],
+                    borderRadius: 4,
+                    borderWidth: 0
+                }]
+            };
+
+            // Dados de Procedimento
+            const dataProcedimento = {
+                labels: [
+                    'Preenchimento Peniano', 
+                    'Nutrologia', 
+                    'Reposição Hormonal', 
+                    'Infertilidade', 
+                    'Andrologia', 
+                    'Cálculo Renal', 
+                    'Ejaculação Precoce'
+                ],
+                datasets: [{
+                    label: 'Interesse por Procedimento',
+                    data: [8, 6, 4, 1, 1, 1, 1], // Contagem manual dos 19 pacientes
+                    backgroundColor: '#3b82f6', // blue-500
+                    borderRadius: 4,
+                    borderWidth: 0
+                }]
+            };
+
+            // --- INICIALIZAÇÃO DOS GRÁFICOS ---
+
+            // Gráfico de Origem (Donut)
+            const ctxOrigem = document.getElementById('origemChart').getContext('2d');
+            new Chart(ctxOrigem, {
+                type: 'doughnut',
+                data: dataOrigem,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // Gráfico de Funil (Bar)
+            const ctxFunil = document.getElementById('funilChart').getContext('2d');
+            new Chart(ctxFunil, {
+                type: 'bar',
+                data: dataFunil,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Gráfico de barras horizontal
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                precision: 0, // Garante números inteiros
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                             ticks: {
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // O label no dataset já é suficiente
+                        }
+                    }
+                }
+            });
+
+             // Gráfico de Procedimento (Bar)
+            const ctxProcedimento = document.getElementById('procedimentoChart').getContext('2d');
+            new Chart(ctxProcedimento, {
+                type: 'bar',
+                data: dataProcedimento,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                precision: 0,
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // --- FUNCIONALIDADE DO ACCORDION ---
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = document.getElementById(button.dataset.target);
+                    const icon = button.querySelector('.accordion-icon');
+
+                    if (content.style.maxHeight) {
+                        // Fechar
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        // Abrir
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Abrir o primeiro accordion por padrão
+            const firstButton = document.querySelector('.accordion-button');
+             if (firstButton) {
+                 const firstContent = document.getElementById(firstButton.dataset.target);
+                 const firstIcon = firstButton.querySelector('.accordion-icon');
+                 firstContent.style.maxHeight = firstContent.scrollHeight + 'px';
+                 firstIcon.style.transform = 'rotate(180deg)';
+             }
+
+        });
+    </script>
+</body>
+</html>
